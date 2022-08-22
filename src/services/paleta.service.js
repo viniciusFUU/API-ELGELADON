@@ -43,11 +43,9 @@ const createPaletaService = async (newPaleta) => {
   return paletaCreated;
 };
 
-const updatePaletaService = (id, paletaEdited) => {
-  paletaEdited['id'] = id;
-  const paletaIndex = paletas.findIndex((paleta) => paleta.id == id);
-  paletas[paletaIndex] = paletaEdited;
-  return paletaEdited;
+const updatePaletaService = async (id, paletaEdited) => {
+  const paletaUpdate = await Paletas.findByIdAndUpdate(id, paletaEdited);
+  return paletaUpdate;
 };
 
 const deletePaletaService = (id) => {

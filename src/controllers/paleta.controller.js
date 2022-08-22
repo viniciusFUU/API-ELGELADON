@@ -47,10 +47,30 @@ const createPaletaController = async (req, res) => {
   res.status(201).send(newPaleta);
 };
 
-const updatePaletaController = (req, res) => {
-  const idParam = Number(req.params.id);
+const updatePaletaController = async (req, res) => {
+  const idParam = req.params.id;
+
+  if (!mongoose.Types.ObjectId.isValid(idParam)) {
+    return res.status(400).send({ message: 'Id inválido.' });
+  }
   const paletaEdit = req.body;
-  const updatedPaleta = paletasService.updatePaletaService(idParam, paletaEdit);
+
+  if (
+    !paletaEdit ||
+    !paletaEdit.sabor ||
+    !paletaEdit.descricao ||
+    !paletaEdit.foto ||
+    !paletaEdit.preco
+  ) {
+    return res
+      .status(400)
+      .send({ message: 'Envie todos os campos da paleta!' });
+  }
+
+  const updatedPaleta = await paletasService.updatePaletaService(
+    idParam,
+    paletaEdit,
+  );
   res.send(updatedPaleta);
 };
 
