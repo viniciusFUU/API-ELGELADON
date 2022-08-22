@@ -48,9 +48,8 @@ const updatePaletaService = async (id, paletaEdited) => {
   return paletaUpdate;
 };
 
-const deletePaletaService = (id) => {
-  const paletaIndex = paletas.findIndex((paleta) => paleta.id == id);
-  return paletas.splice(paletaIndex, 1);
+const deletePaletaService = async (id) => {
+  return await Paletas.findByIdAndDelete(id)
 };
 
 module.exports = {
