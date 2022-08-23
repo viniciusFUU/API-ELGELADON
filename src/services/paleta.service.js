@@ -25,7 +25,6 @@
 //   },
 // ];
 
-const Paleta = require('../models/Paleta');
 const Paletas = require('../models/Paleta');
 
 const findAllPaletasService = async () => {
